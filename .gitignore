@@ -1,0 +1,94 @@
+# ══════════════════════════════════════════════════════════════════════════
+#  PROPERTY-PRICE-PREDICTION  —  root .gitignore
+# ══════════════════════════════════════════════════════════════════════════
+
+# ── Python ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+
+# ── Virtual environments ───────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# ── Environment variables (secrets!) ──────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.env  
+
+# ── ML — trained model artifacts ──────────────────────────────────────────
+# Commit your code, NOT your binary model files
+backend/ml/models/*.pkl
+backend/ml/models/*.joblib
+backend/ml/models/*.json
+
+# ── ML — datasets ─────────────────────────────────────────────────────────
+# Keep the folder structure but ignore actual data files
+backend/ml/data/*.csv
+backend/ml/data/*.xlsx
+backend/ml/data/*.parquet
+
+# ── Jupyter Notebook ───────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── FastAPI / Uvicorn ──────────────────────────────────────────────────────
+*.log
+uvicorn.log
+
+# ── Node / React / Vite ───────────────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+.cache/
+
+# ── Build outputs ──────────────────────────────────────────────────────────
+build/
+out/
+.output/
+
+# ── OS files ───────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── IDE / Editor ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.user
+.history/
+
+# ── Testing & coverage ─────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+*.coverage
+.tox/
+
+# ── Miscellaneous ──────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*.orig
+.temp/
+tmp/
