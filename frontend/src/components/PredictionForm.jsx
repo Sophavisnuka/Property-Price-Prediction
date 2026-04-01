@@ -21,47 +21,60 @@ function PredictionForm() {
     };
 
     return (
-        <div className="bg-white shadow-md rounded-xl p-6">
+        <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
 
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Property Details
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
 
-                <input
-                    placeholder="Location"
-                    className="w-full border p-2 rounded"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                />
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                    <input
+                        placeholder="Enter property location"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                    />
+                </div>
 
-                <input
-                    type="number"
-                    placeholder="Bedrooms"
-                    className="w-full border p-2 rounded"
-                    value={bedrooms}
-                    onChange={(e) => setBedrooms(e.target.value)}
-                />
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
+                        <input
+                            type="number"
+                            placeholder="0"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            value={bedrooms}
+                            onChange={(e) => setBedrooms(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Bathrooms</label>
+                        <input
+                            type="number"
+                            placeholder="0"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            value={bathrooms}
+                            onChange={(e) => setBathrooms(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                <input
-                    type="number"
-                    placeholder="Bathrooms"
-                    className="w-full border p-2 rounded"
-                    value={bathrooms}
-                    onChange={(e) => setBathrooms(e.target.value)}
-                />
-
-                <input
-                    type="number"
-                    placeholder="Size (m²)"
-                    className="w-full border p-2 rounded"
-                    value={size}
-                    onChange={(e) => setSize(e.target.value)}
-                />
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Size (m²)</label>
+                    <input
+                        type="number"
+                        placeholder="120"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                        value={size}
+                        onChange={(e) => setSize(e.target.value)}
+                    />
+                </div>
 
                 <button
-                    className="w-full bg-blue-600 text-white py-2 rounded"
+                    className="w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-semibold py-3 rounded-lg transition-all mt-6"
                 >
                     Predict Price
                 </button>
