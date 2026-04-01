@@ -1,3 +1,11 @@
+"""
+preprocess.py
+-------------
+Matches CSV columns:
+  listing_id, city, district, location, property_type,
+  rent_price_usd, posted_date, title, source_url
+"""
+
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, StandardScaler
@@ -5,51 +13,63 @@ from sklearn.model_selection import train_test_split
 import pickle
 import os
 
-# ── paths ──────────────────────────────────────────────────────────────────────
-DATA_PATH   = os.path.join(os.path.dirname(__file__), "..", "data", "properties.csv")
-OUTPUT_DIR  = os.path.join(os.path.dirname(__file__), "models")
+# ── Paths ───────────────────────────────────────────────────────────────────
+DATA_PATH  = os.path.join(os.path.dirname(__file__), "..", "data", "properties.csv")
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "models")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# ── columns you expect in your CSV ────────────────────────────────────────────
-# Adjust these to match your actual column names
-CATEGORICAL_COLS = ["location", "property_type", "furnishing"]
-NUMERICAL_COLS   = ["bedrooms", "bathrooms", "floor_area_sqm", "floor_level",
-                    "year_built", "parking_spaces"]
-TARGET_COL       = "price"
+# ── Column config (edit here if your CSV changes) ───────────────────────────
+CATEGORICAL_COLS = ["city", "district", "location", "property_type"]
+NUMERICAL_COLS   = []          # none in your current CSV
+TARGET_COL       = "rent_price_usd"
+DROP_COLS        = ["listing_id", "title", "source_url"]   # not useful for training
+DATE_COL         = "posted_date"
 
 
 def load_data(path: str = DATA_PATH) -> pd.DataFrame:
     df = pd.read_csv(path)
     print(f"[preprocess] Loaded {len(df):,} rows, {len(df.columns)} columns")
+    print(f"[preprocess] Columns: {list(df.columns)}")
     return df
 
 
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Basic cleaning — extend this as you finish your data cleaning."""
 
-    # 1. Drop duplicates
+    # 1. Drop columns not useful for training
+    df = df.drop(columns=[c for c in DROP_COLS if c in df.columns], errors="ignore")
+
+    # 2. Drop rows where target is missing or zero
     before = len(df)
-    df = df.drop_duplicates()
-    print(f"[preprocess] Dropped {before - len(df)} duplicates")
-
-    # 2. Drop rows where target is missing
     df = df.dropna(subset=[TARGET_COL])
+    df = df[df[TARGET_COL] > 0]
+    print(f"[preprocess] Dropped {before - len(df)} rows with missing/zero price")
 
-    # 3. Remove obvious outliers (price = 0 or extreme z-score)
-    z = np.abs((df[TARGET_COL] - df[TARGET_COL].mean()) / df[TARGET_COL].std())
-    df = df[z < 3.5]
-    print(f"[preprocess] After outlier removal: {len(df):,} rows")
+    # 3. Remove price outliers using IQR (more robust than z-score for skewed data)
+    Q1  = df[TARGET_COL].quantile(0.05)
+    Q3  = df[TARGET_COL].quantile(0.95)
+    IQR = Q3 - Q1
+    before = len(df)
+    df  = df[(df[TARGET_COL] >= Q1 - 1.5 * IQR) & (df[TARGET_COL] <= Q3 + 1.5 * IQR)]
+    print(f"[preprocess] Removed {before - len(df)} price outliers | "
+          f"range: ${df[TARGET_COL].min():,.0f} – ${df[TARGET_COL].max():,.0f}")
 
-    # 4. Fill missing numerics with median
-    for col in NUMERICAL_COLS:
-        if col in df.columns:
-            df[col] = df[col].fillna(df[col].median())
-
-    # 5. Fill missing categoricals with mode
+    # 4. Clean & normalise categoricals
     for col in CATEGORICAL_COLS:
         if col in df.columns:
-            df[col] = df[col].fillna(df[col].mode()[0])
-            df[col] = df[col].astype(str).str.strip().str.lower()
+            df[col] = (df[col]
+                       .fillna("unknown")
+                       .astype(str)
+                       .str.strip()
+                       .str.lower())
+
+    # 5. Extract date features from posted_date
+    if DATE_COL in df.columns:
+        df[DATE_COL] = pd.to_datetime(df[DATE_COL], errors="coerce")
+        df["post_month"]     = df[DATE_COL].dt.month.fillna(0).astype(int)
+        df["post_dayofweek"] = df[DATE_COL].dt.dayofweek.fillna(0).astype(int)
+        df["post_quarter"]   = df[DATE_COL].dt.quarter.fillna(0).astype(int)
+        df = df.drop(columns=[DATE_COL])
+        print("[preprocess] Extracted date features: post_month, post_dayofweek, post_quarter")
 
     return df
 
@@ -57,49 +77,51 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
 def encode_and_scale(df: pd.DataFrame):
     """
     Returns:
-        X_train, X_test, y_train, y_test  (numpy arrays)
-        feature_names                       (list[str])
-        encoders                            (dict of LabelEncoders)
-        scaler                              (StandardScaler)
+        X_train, X_test, y_train, y_test  — numpy arrays
+        feature_names                      — list[str]
+        encoders                           — dict[str, LabelEncoder]
+        scaler                             — StandardScaler
     """
     encoders: dict = {}
 
-    # Encode categoricals
+    # Label-encode each categorical column
     for col in CATEGORICAL_COLS:
         if col in df.columns:
             le = LabelEncoder()
             df[col] = le.fit_transform(df[col])
             encoders[col] = le
+            print(f"[preprocess] '{col}' → {len(le.classes_)} unique categories")
 
-    # Build feature matrix
-    feature_cols = [c for c in CATEGORICAL_COLS + NUMERICAL_COLS if c in df.columns]
-    X = df[feature_cols].values
-    y = df[TARGET_COL].values
+    # Date-derived numerics (already integers, no encoder needed)
+    date_features = [c for c in ["post_month", "post_dayofweek", "post_quarter"]
+                     if c in df.columns]
 
-    feature_names = feature_cols
+    # Final feature list = encoded categoricals + date features
+    feature_cols = [c for c in CATEGORICAL_COLS if c in df.columns] + date_features
+    X = df[feature_cols].values.astype(float)
+    y = df[TARGET_COL].values.astype(float)
 
-    # Train/test split (80/20, stratified split not needed for regression)
+    print(f"[preprocess] Feature columns: {feature_cols}")
+    print(f"[preprocess] Target: {TARGET_COL}  |  "
+          f"mean=${y.mean():,.0f}  median=${np.median(y):,.0f}")
+
+    # Train / test split — 80/20
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
 
-    # Scale features
-    scaler = StandardScaler()
+    # Scale (important even for encoded categoricals with high cardinality)
+    scaler  = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_test  = scaler.transform(X_test)
 
-    # Persist encoders + scaler so predict.py can reuse them
-    with open(os.path.join(OUTPUT_DIR, "encoders.pkl"), "wb") as f:
-        pickle.dump(encoders, f)
-    with open(os.path.join(OUTPUT_DIR, "scaler.pkl"), "wb") as f:
-        pickle.dump(scaler, f)
-    with open(os.path.join(OUTPUT_DIR, "feature_names.pkl"), "wb") as f:
-        pickle.dump(feature_names, f)
+    # Persist artifacts for predict.py
+    with open(os.path.join(OUTPUT_DIR, "encoders.pkl"),      "wb") as f: pickle.dump(encoders, f)
+    with open(os.path.join(OUTPUT_DIR, "scaler.pkl"),        "wb") as f: pickle.dump(scaler, f)
+    with open(os.path.join(OUTPUT_DIR, "feature_names.pkl"), "wb") as f: pickle.dump(feature_cols, f)
 
-    print(f"[preprocess] Features: {feature_names}")
-    print(f"[preprocess] Train: {X_train.shape}  Test: {X_test.shape}")
-
-    return X_train, X_test, y_train, y_test, feature_names, encoders, scaler
+    print(f"[preprocess] Train: {X_train.shape}  |  Test: {X_test.shape}")
+    return X_train, X_test, y_train, y_test, feature_cols, encoders, scaler
 
 
 def run():

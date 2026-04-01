@@ -92,3 +92,6 @@ htmlcov/
 *.orig
 .temp/
 tmp/
+
+data/
+*.csv
