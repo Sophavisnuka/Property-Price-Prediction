@@ -160,8 +160,8 @@ def run():
         with open(os.path.join(OUTPUT_DIR, f"{safe}.pkl"), "wb") as f:
             pickle.dump(res["model"], f)
 
-    print(f"\n💾 Saved best model → {model_path}")
-    print(f"💾 All individual models saved in {OUTPUT_DIR}/")
+    print(f"\nSaved best model → {model_path}")
+    print(f"All individual models saved in {OUTPUT_DIR}/")
 
     return best_mdl, feature_names, results
 

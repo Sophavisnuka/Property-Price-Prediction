@@ -27,7 +27,11 @@ DATE_COL         = "posted_date"
 
 
 def load_data(path: str = DATA_PATH) -> pd.DataFrame:
-    df = pd.read_csv(path)
+    # NEW — tries UTF-8 first, falls back to Windows encoding
+    try:
+        df = pd.read_csv(path, encoding="utf-8")
+    except UnicodeDecodeError:
+        df = pd.read_csv(path, encoding="latin-1")
     print(f"[preprocess] Loaded {len(df):,} rows, {len(df.columns)} columns")
     print(f"[preprocess] Columns: {list(df.columns)}")
     return df
