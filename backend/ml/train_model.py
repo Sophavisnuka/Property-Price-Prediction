@@ -116,7 +116,7 @@ def run():
     print("  PROPERTY RENT PREDICTION — MODEL TRAINING")
     print("=" * 60)
 
-    X_train, X_test, y_train, y_test, feature_names, encoders, scaler = prepare_data()
+    X_train, X_test, y_train, y_test, feature_names, encoders, scaler, imputer = prepare_data()
 
     results = []
     for name, model in MODELS.items():

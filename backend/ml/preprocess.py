@@ -14,15 +14,22 @@ import pickle
 import os
 
 # ── Paths ───────────────────────────────────────────────────────────────────
-DATA_PATH  = os.path.join(os.path.dirname(__file__), "..", "data", "properties.csv")
+DATA_PATH  = os.path.join(os.path.dirname(__file__), "..", "data", "Khmer24_features.csv")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "models")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ── Column config (edit here if your CSV changes) ───────────────────────────
-CATEGORICAL_COLS = ["city", "district", "location", "property_type"]
-NUMERICAL_COLS   = []          # none in your current CSV
+CATEGORICAL_COLS = [] # Already encoded/dummy in CSV
+NUMERICAL_COLS   = [
+    "size_sqm", "bedrooms", "bathrooms", "log_size_sqm", 
+    "bath_per_bed", "total_rooms", "furnished_score", "district_freq",
+    "type_Flat", "type_Flat House", "type_House", "type_Link Villa", 
+    "type_Room", "type_Shop", "type_Shophouse", "type_Single Villa", 
+    "type_Twin Villa", "type_Unclassified", "type_Villa",
+    "size_sqm_was_missing", "bedrooms_was_missing", "bathrooms_was_missing"
+]
 TARGET_COL       = "rent_price_usd"
-DROP_COLS        = ["listing_id", "title", "source_url"]   # not useful for training
+DROP_COLS        = ["log_rent", "price_per_sqm", "log_price_per_sqm"]   # Data leakage columns
 DATE_COL         = "posted_date"
 
 
@@ -100,10 +107,15 @@ def encode_and_scale(df: pd.DataFrame):
     date_features = [c for c in ["post_month", "post_dayofweek", "post_quarter"]
                      if c in df.columns]
 
-    # Final feature list = encoded categoricals + date features
-    feature_cols = [c for c in CATEGORICAL_COLS if c in df.columns] + date_features
+    # Final feature list = encoded categoricals + date features + numerical features
+    feature_cols = [c for c in CATEGORICAL_COLS if c in df.columns] + date_features + [c for c in NUMERICAL_COLS if c in df.columns]
     X = df[feature_cols].values.astype(float)
     y = df[TARGET_COL].values.astype(float)
+
+    # Impute NaNs in the inputs just in case
+    from sklearn.impute import SimpleImputer
+    imputer = SimpleImputer(strategy='median')
+    X = imputer.fit_transform(X)
 
     print(f"[preprocess] Feature columns: {feature_cols}")
     print(f"[preprocess] Target: {TARGET_COL}  |  "
@@ -122,10 +134,11 @@ def encode_and_scale(df: pd.DataFrame):
     # Persist artifacts for predict.py
     with open(os.path.join(OUTPUT_DIR, "encoders.pkl"),      "wb") as f: pickle.dump(encoders, f)
     with open(os.path.join(OUTPUT_DIR, "scaler.pkl"),        "wb") as f: pickle.dump(scaler, f)
+    with open(os.path.join(OUTPUT_DIR, "imputer.pkl"),       "wb") as f: pickle.dump(imputer, f)
     with open(os.path.join(OUTPUT_DIR, "feature_names.pkl"), "wb") as f: pickle.dump(feature_cols, f)
 
     print(f"[preprocess] Train: {X_train.shape}  |  Test: {X_test.shape}")
-    return X_train, X_test, y_train, y_test, feature_cols, encoders, scaler
+    return X_train, X_test, y_train, y_test, feature_cols, encoders, scaler, imputer
 
 
 def run():

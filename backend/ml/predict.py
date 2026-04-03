@@ -1,22 +1,19 @@
 """
 predict.py
 ----------
-FastAPI route that:
-    1. Accepts user input (location, bedrooms, bathrooms, ...)
-    2. Encodes + scales it using the saved artifacts from training
-    3. Returns price prediction + similar property suggestions
+FastAPI route that handles prediction based on Khmer24 features.
 """
 
-import pickle, os
+import pickle, os, math
 import numpy as np
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional
-import pandas as pd
 
 router = APIRouter()
 
 # ── paths ─────────────────────────────────────────────────────────────────────
+# Depending on where this file is, adjust the relative path to your ml/models directory
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "ml", "models")
 
 def _load(filename):
@@ -26,26 +23,24 @@ def _load(filename):
     with open(path, "rb") as f:
         return pickle.load(f)
 
-# Load once at startup (module-level)
-_bundle       = _load("best_model.pkl")     # {"model": ..., "model_name": ...}
+# Load once at startup
+_bundle       = _load("best_model.pkl")     
 _model        = _bundle["model"]
 _model_name   = _bundle["model_name"]
-_encoders     = _load("encoders.pkl")       # dict[str, LabelEncoder]
-_scaler       = _load("scaler.pkl")         # StandardScaler
-_feature_names = _load("feature_names.pkl") # list[str]
+_encoders     = _load("encoders.pkl")       
+_scaler       = _load("scaler.pkl")         
+_imputer      = _load("imputer.pkl")        # NEW: Load imputer
+_feature_names = _load("feature_names.pkl") 
 
 
 # ── request / response schemas ─────────────────────────────────────────────────
 class PredictRequest(BaseModel):
-    location:       str            = Field(..., example="phnom penh")
-    property_type:  str            = Field(..., example="apartment")
-    bedrooms:       int            = Field(..., ge=0, le=20, example=2)
-    bathrooms:      int            = Field(..., ge=1, le=20, example=2)
-    floor_area_sqm: float          = Field(..., gt=0,        example=75.0)
-    furnishing:     Optional[str]  = Field("unfurnished",    example="furnished")
-    floor_level:    Optional[int]  = Field(1,                example=3)
-    year_built:     Optional[int]  = Field(2015,             example=2020)
-    parking_spaces: Optional[int]  = Field(0,                example=1)
+    size_sqm:       float          = Field(..., gt=0, example=75.0)
+    bedrooms:       int            = Field(..., ge=0, example=2)
+    bathrooms:      int            = Field(..., ge=1, example=2)
+    property_type:  str            = Field(..., example="Villa") # e.g. "Flat", "Villa", "Condo"
+    furnishing:     Optional[str]  = Field("unfurnished", example="furnished")
+    # You can add district or location here if you want to calculate district_freq
 
 
 class PredictResponse(BaseModel):
@@ -57,33 +52,57 @@ class PredictResponse(BaseModel):
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
-def _safe_encode(col: str, value: str) -> int:
-    """Label-encode a value; fall back to 0 (most common class) if unseen."""
-    le = _encoders.get(col)
-    if le is None:
-        return 0
-    value = str(value).strip().lower()
-    if value in le.classes_:
-        return int(le.transform([value])[0])
-    # Unknown category — use the most frequent class
-    return 0
-
-
 def _build_feature_vector(req: PredictRequest) -> np.ndarray:
+    # 1. Basic properties
+    size_sqm = req.size_sqm
+    bedrooms = req.bedrooms
+    bathrooms = req.bathrooms
+    
+    # 2. Engineered features
+    log_size_sqm = math.log1p(size_sqm) if size_sqm > 0 else 0
+    bath_per_bed = bathrooms / bedrooms if bedrooms > 0 else bathrooms
+    total_rooms = bedrooms + bathrooms
+    
+    # Furnished score (basic binary map for example purposes)
+    furnished_score = 1 if str(req.furnishing).lower() in ["furnished", "fully furnished"] else 0
+    
+    # District freq (fallback average if user district isn't provided/known)
+    district_freq = 0.5 
+    
+    # Missing value flags
+    size_sqm_was_missing = 0
+    bedrooms_was_missing = 0
+    bathrooms_was_missing = 0
+
+    # 3. Compile base dictionary
     row = {
-        "location":       _safe_encode("location",      req.location),
-        "property_type":  _safe_encode("property_type", req.property_type),
-        "furnishing":     _safe_encode("furnishing",     req.furnishing or "unfurnished"),
-        "bedrooms":       req.bedrooms,
-        "bathrooms":      req.bathrooms,
-        "floor_area_sqm": req.floor_area_sqm,
-        "floor_level":    req.floor_level or 1,
-        "year_built":     req.year_built or 2015,
-        "parking_spaces": req.parking_spaces or 0,
+        "size_sqm": size_sqm,
+        "bedrooms": bedrooms,
+        "bathrooms": bathrooms,
+        "log_size_sqm": log_size_sqm,
+        "bath_per_bed": bath_per_bed,
+        "total_rooms": total_rooms,
+        "furnished_score": furnished_score,
+        "district_freq": district_freq,
+        "size_sqm_was_missing": size_sqm_was_missing,
+        "bedrooms_was_missing": bedrooms_was_missing,
+        "bathrooms_was_missing": bathrooms_was_missing
     }
-    # Keep only features the model was trained on, in correct order
+    
+    # 4. Generate dummy variables for property_type
+    # Example: If req.property_type is "Villa", we set "type_Villa" = 1, others = 0
+    prefix = f"type_{req.property_type}"
+    for f in _feature_names:
+        if f.startswith("type_"):
+            row[f] = 1 if f == prefix else 0
+
+    # 5. Keep only features the model was trained on, in correct order
     vec = np.array([[row.get(f, 0) for f in _feature_names]], dtype=float)
+    
+    # 6. Apply Imputer and Scaler
+    vec = _imputer.transform(vec)
     vec = _scaler.transform(vec)
+    
     return vec
 
 
@@ -107,7 +126,6 @@ def predict_price(req: PredictRequest):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 # ── health check ──────────────────────────────────────────────────────────────
 @router.get("/predict/health")

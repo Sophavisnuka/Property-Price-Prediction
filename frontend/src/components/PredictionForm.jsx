@@ -96,6 +96,10 @@ function PredictionForm({ onResult, onLoading }) {
   const [district,     setDistrict]     = useState("");
   const [location,     setLocation]     = useState("");
   const [propertyType, setPropertyType] = useState("");
+  const [sizeSqm,      setSizeSqm]      = useState("");
+  const [bedrooms,     setBedrooms]     = useState("");
+  const [bathrooms,    setBathrooms]    = useState("");
+  const [furnishing,   setFurnishing]   = useState("unfurnished");
   const [loading,      setLoading]      = useState(false);
   const [error,        setError]        = useState("");
 
@@ -110,8 +114,8 @@ function PredictionForm({ onResult, onLoading }) {
     setError("");
     onResult(null);       // reset result in parent
 
-    if (!city || !district || !location || !propertyType) {
-      setError("Please fill in all fields or pin a location on the map.");
+    if (!sizeSqm || !bedrooms || !bathrooms || !propertyType) {
+      setError("Please fill in size, bedrooms, bathrooms, and property type (or pin a location on the map).");
       return;
     }
 
@@ -122,16 +126,20 @@ function PredictionForm({ onResult, onLoading }) {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          city:          city.trim().toLowerCase(),
-          district:      district.trim().toLowerCase(),
-          location:      location.trim().toLowerCase(),
+          size_sqm:      parseFloat(sizeSqm),
+          bedrooms:      parseInt(bedrooms),
+          bathrooms:     parseInt(bathrooms),
           property_type: propertyType.trim().toLowerCase(),
+          furnishing:    furnishing,
         }),
       });
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.detail || `Server error ${res.status}`);
+        const errDetail = Array.isArray(err.detail) 
+          ? err.detail.map(e => `${e.loc.slice(-1)}: ${e.msg}`).join(", ") 
+          : err.detail;
+        throw new Error(errDetail || `Server error ${res.status}`);
       }
 
       const data = await res.json();
@@ -145,10 +153,12 @@ function PredictionForm({ onResult, onLoading }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+    <div className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-cyan-500"></div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">
-        Property Details
+      <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+        <svg className="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+        Property Parameters
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -211,6 +221,51 @@ function PredictionForm({ onResult, onLoading }) {
           </select>
         </div>
 
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Size (sqm)</label>
+            <input
+              type="number"
+              placeholder="e.g. 75"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+              value={sizeSqm}
+              onChange={(e) => setSizeSqm(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
+            <input
+              type="number"
+              placeholder="e.g. 2"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+              value={bedrooms}
+              onChange={(e) => setBedrooms(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Bathrooms</label>
+            <input
+              type="number"
+              placeholder="e.g. 2"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+              value={bathrooms}
+              onChange={(e) => setBathrooms(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Furnishing</label>
+          <select
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white"
+            value={furnishing}
+            onChange={(e) => setFurnishing(e.target.value)}
+          >
+            <option value="unfurnished">Unfurnished</option>
+            <option value="furnished">Furnished</option>
+          </select>
+        </div>
+
         {error && (
           <div className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3">
             ⚠ {error}
@@ -220,9 +275,25 @@ function PredictionForm({ onResult, onLoading }) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-semibold py-3 rounded-lg transition-all mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full relative group overflow-hidden bg-slate-900 border border-slate-800 text-white font-semibold py-4 rounded-xl transition-all mt-8 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-[0_0_20px_rgba(79,70,229,0.3)]"
         >
-          {loading ? "Predicting…" : "Predict Price"}
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <span className="relative flex items-center justify-center gap-3">
+            {loading ? (
+              <>
+                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing Request...
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                Run AI Optimization
+              </>
+            )}
+          </span>
         </button>
 
       </form>
