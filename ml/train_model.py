@@ -22,7 +22,7 @@ from sklearn.metrics import (mean_absolute_error, mean_squared_error,
 from sklearn.model_selection import cross_val_score
 warnings.filterwarnings("ignore")
 
-from preprocess import run as prepare_data
+from ml.preprocess import run as prepare_data
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "models")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
