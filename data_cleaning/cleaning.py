@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # ── Load Data ─────────────────────────────────────────────────
-df = pd.read_csv("data_cleaning/Khmer24_cleaned_final.csv")
+df = pd.read_csv("data_cleaning/Khmer24_cleaned_v1.csv")
 
 print("=" * 60)
 print("DATASET OVERVIEW")
@@ -150,6 +150,8 @@ df['furnished'] = (
 )
 print(df['furnished'].value_counts().to_string())
 
+#step 6: Eliminating unnecessary field
+df = df.drop(columns= ['furnished', 'posted_date', 'title' , 'source_url'], errors='ignore')
 
 
 # ── Step 6: Missing Value Summary ────────────────────────────
@@ -212,7 +214,7 @@ flag_cols = [f"{c}_was_missing" for c in cols]
 print(f"\n  Imputed counts:")
 print(df[flag_cols].sum().to_string())
 
-
+df = df.drop(columns=flag_cols, errors='ignore')
 
 # ── Step 10: Final Summary ────────────────────────────────────
 print("\n" + "=" * 60)
@@ -227,7 +229,22 @@ print(df['size_sqm'].describe().round(2).to_string())
 
 
 # ── Save ──────────────────────────────────────────────────────
-output_path = "data_cleaning/Khmer24_cleaned_v2.csv"
+output_path = "data_cleaning/Khmer24_cleaned_v4.csv"
 df.to_csv(output_path, index=False)
 print(f"\n  Saved: {output_path}")
 print(f"  Shape: {df.shape}")
+
+def clean_dataset(df):
+    df = drop_duplicates(df)
+    df = clean_rent_price(df)
+    df = clean_numeric_columns(df)
+    df = normalize_property_type(df)
+    df = encode_furnished(df)
+    df = impute_missing_values(df)
+    df = engineer_features(df)
+    return df
+
+def main(input_path, output_path):
+    df = load_data(input_path)
+    cleaned = clean_dataset(df)
+    save_data(cleaned, output_path)
