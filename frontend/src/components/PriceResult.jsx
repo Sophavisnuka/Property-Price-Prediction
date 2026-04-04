@@ -15,35 +15,18 @@ function PriceResult({ result, loading }) {
   const fmt = (v) =>
     "$" + Number(v).toLocaleString("en-US", { maximumFractionDigits: 0 });
 
-  // Fallback structures so it doesn't break while loading/empty
-  const averageMarketPrice = result?.average_market_price || (result ? result.predicted_price * 0.92 : 0);
+  // Force it to use the backend payload instead of fallbacks
+  const averageMarketPrice = result?.average_market_price || 0;
   
   // Calculate percentage difference vs. average area market price
   const diffRaw = result && averageMarketPrice > 0 ? ((result.predicted_price - averageMarketPrice) / averageMarketPrice) * 100 : 0;
   const isHigher = diffRaw > 0;
   const percentageDiff = Math.abs(diffRaw).toFixed(1);
 
-  // Directly map the new backend response arrays with fallbacks if backend is not updated yet
-  const featureImportanceData = result?.feature_importances || [
-    { feature: "Location", waitWeight: 40 },
-    { feature: "Property Size", waitWeight: 30 },
-    { feature: "Bedrooms", waitWeight: 15 },
-    { feature: "Bathrooms", waitWeight: 10 },
-    { feature: "Property Type", waitWeight: 5 },
-  ];
-  const locationData = result?.location_data || [
-    { location: "BKK1", price: 1200 },
-    { location: "Toul Tom Poung", price: 850 },
-    { location: "Daun Penh", price: 1050 },
-    { location: "7 Makara", price: 700 },
-  ];
-  const sizeCorrelationData = result?.size_correlation_data || [
-    { size: 30, price: 350 },
-    { size: 50, price: 500 },
-    { size: 75, price: 750 },
-    { size: 100, price: 1000 },
-    { size: 150, price: 1400 },
-  ];
+  // Directly map the new backend response arrays
+  const featureImportanceData = result?.feature_importances || [];
+  const locationData = result?.location_data || [];
+  const sizeCorrelationData = result?.size_correlation_data || [];
 
   return (
     <div className="relative bg-slate-900 rounded-3xl p-5 border border-indigo-500/30 shadow-[0_0_30px_rgba(79,70,229,0.1)] flex flex-col min-h-[380px] overflow-hidden text-white">
