@@ -74,7 +74,7 @@ function LocationMap({ onSelect }) {
     <div>
       <div
         ref={mapRef}
-        style={{ width: "100%", height: 260, borderRadius: 8, overflow: "hidden" }}
+        style={{ width: "100%", height: "100%", minHeight: 300, borderRadius: 8, overflow: "hidden" }}
         className="border border-gray-300"
       />
       <p className={`text-xs mt-2 ${locLoading ? "text-purple-500" : "text-gray-400"}`}>
@@ -85,9 +85,7 @@ function LocationMap({ onSelect }) {
 }
 
 const PROPERTY_TYPES = [
-  "apartment", "house", "villa", "condo", "shophouse",
-  "studio", "room", "office", "land", "townhouse",
-  "penthouse", "duplex", "other",
+  "apartment", "house", "room", "condo",
 ];
 
 // ← now accepts onResult and onLoading from parent
@@ -161,116 +159,129 @@ function PredictionForm({ onResult, onLoading }) {
         Property Parameters
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Pin Location on Map
-          </label>
-          <LocationMap onSelect={handleMapSelect} />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
-            <input
-              placeholder="e.g. phnom penh"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
+      <form onSubmit={handleSubmit} className="mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* Left Side: Map */}
+          <div className="flex flex-col">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Pin Location on Map
+            </label>
+            <div className="flex-1 min-h-[300px] h-full relative">
+              {/* Ensure LocationMap fills the parent */}
+              <div className="absolute inset-0 w-full h-full">
+                <LocationMap onSelect={handleMapSelect} />
+              </div>
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
-            <input
-              placeholder="e.g. toul kork"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-              value={district}
-              onChange={(e) => setDistrict(e.target.value)}
-            />
+
+          {/* Right Side: Form Fields */}
+          <div className="space-y-5">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+                <input
+                  placeholder="e.g. Phnom Penh"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  value={district}
+                  onChange={(e) => setDistrict(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
+                <input
+                  placeholder="e.g. Chroy Chanva"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Location / Area
+                </label>
+                <input
+                  placeholder="e.g. boeung kak"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Property Type
+                </label>
+                <select
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white"
+                  value={propertyType}
+                  onChange={(e) => setPropertyType(e.target.value)}
+                >
+                  <option value="">— select type —</option>
+                  {PROPERTY_TYPES.map((t) => (
+                    <option key={t} value={t}>
+                      {t.charAt(0).toUpperCase() + t.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Size (sqm)</label>
+                <input
+                  type="number"
+                  placeholder="e.g. 75"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  value={sizeSqm}
+                  onChange={(e) => setSizeSqm(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
+                <input
+                  type="number"
+                  placeholder="e.g. 2"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  value={bedrooms}
+                  onChange={(e) => setBedrooms(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Bathrooms</label>
+                <input
+                  type="number"
+                  placeholder="e.g. 2"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  value={bathrooms}
+                  onChange={(e) => setBathrooms(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Furnishing</label>
+              <select
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white"
+                value={furnishing}
+                onChange={(e) => setFurnishing(e.target.value)}
+              >
+                <option value="unfurnished">Unfurnished</option>
+                <option value="furnished">Furnished</option>
+              </select>
+            </div>
+
+            {error && (
+              <div className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                ⚠ {error}
+              </div>
+            )}
           </div>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Location / Area
-          </label>
-          <input
-            placeholder="e.g. boeung kak"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Property Type
-          </label>
-          <select
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white"
-            value={propertyType}
-            onChange={(e) => setPropertyType(e.target.value)}
-          >
-            <option value="">— select type —</option>
-            {PROPERTY_TYPES.map((t) => (
-              <option key={t} value={t}>
-                {t.charAt(0).toUpperCase() + t.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Size (sqm)</label>
-            <input
-              type="number"
-              placeholder="e.g. 75"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-              value={sizeSqm}
-              onChange={(e) => setSizeSqm(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
-            <input
-              type="number"
-              placeholder="e.g. 2"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-              value={bedrooms}
-              onChange={(e) => setBedrooms(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Bathrooms</label>
-            <input
-              type="number"
-              placeholder="e.g. 2"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-              value={bathrooms}
-              onChange={(e) => setBathrooms(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Furnishing</label>
-          <select
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white"
-            value={furnishing}
-            onChange={(e) => setFurnishing(e.target.value)}
-          >
-            <option value="unfurnished">Unfurnished</option>
-            <option value="furnished">Furnished</option>
-          </select>
-        </div>
-
-        {error && (
-          <div className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-3">
-            ⚠ {error}
-          </div>
-        )}
 
         <button
           type="submit"
