@@ -1,0 +1,798 @@
+2026-04-02 19:36:03 [scrapy.utils.log] INFO: Scrapy 2.14.2 started (bot: khmer24)
+2026-04-02 19:36:03 [scrapy.utils.log] INFO: Versions:
+{'lxml': '6.0.2',
+ 'libxml2': '2.14.6',
+ 'cssselect': '1.4.0',
+ 'parsel': '1.11.0',
+ 'w3lib': '2.4.1',
+ 'Twisted': '25.5.0',
+ 'Python': '3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]',
+ 'pyOpenSSL': '26.0.0 (OpenSSL 3.5.5 27 Jan 2026)',
+ 'cryptography': '46.0.6',
+ 'Platform': 'Linux-6.17.0-19-generic-x86_64-with-glibc2.39'}
+2026-04-02 19:36:03 [scrapy.addons] INFO: Enabled addons:
+[]
+2026-04-02 19:36:03 [scrapy.extensions.telnet] INFO: Telnet Password: dcc92b64c97a3c6a
+2026-04-02 19:36:03 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.logcount.LogCount',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.logstats.LogStats']
+2026-04-02 19:36:03 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'khmer24',
+ 'CONCURRENT_REQUESTS': 1,
+ 'DOWNLOAD_DELAY': 3,
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'khmer24.spiders',
+ 'RETRY_HTTP_CODES': [403, 429, 500, 502, 503, 504],
+ 'RETRY_TIMES': 3,
+ 'SPIDER_MODULES': ['khmer24.spiders'],
+ 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+               '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+2026-04-02 19:36:03 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2026-04-02 19:36:03 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.start.StartSpiderMiddleware',
+ 'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2026-04-02 19:36:03 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2026-04-02 19:36:03 [scrapy.core.engine] INFO: Spider opened
+2026-04-02 19:36:03 [py.warnings] WARNING: /home/megheng/CADT/data science/cambodia-house-renting/venv/lib/python3.12/site-packages/scrapy/core/spidermw.py:490: ScrapyDeprecationWarning: khmer24.spiders.debug_realestate.DebugRealestateSpider defines the deprecated start_requests() method. start_requests() has been deprecated in favor of a new method, start(), to support asynchronous code execution. start_requests() will stop being called in a future version of Scrapy. If you use Scrapy 2.13 or higher only, replace start_requests() with start(); note that start() is a coroutine (async def). If you need to maintain compatibility with lower Scrapy versions, when overriding start_requests() in a spider class, override start() as well; you can use super() to reuse the inherited start() implementation without copy-pasting. See the release notes of Scrapy 2.13 for details: https://docs.scrapy.org/en/2.13/news.html
+  warn(
+
+2026-04-02 19:36:03 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2026-04-02 19:36:03 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Starting download handler
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Starting download handler
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Launching 1 startup context(s)
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Launching browser chromium
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Launching 1 startup context(s)
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Launching browser chromium
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Browser chromium launched
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Startup context(s) launched
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Browser chromium launched
+2026-04-02 19:36:03 [scrapy-playwright] INFO: Startup context(s) launched
+2026-04-02 19:36:34 [debug_realestate] INFO: Saved debug_realestate.png
+2026-04-02 19:36:38 [debug_realestate] INFO: Saved debug_realestate.html
+2026-04-02 19:36:38 [debug_realestate] INFO: Page title: Houses for Rent in Phnom Penh | realestate.com.kh
+2026-04-02 19:36:38 [debug_realestate] INFO: 
+--- All <a> tags with likely listing hrefs ---
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=['css-xwbn1g'] -> /listings/create/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/house/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/apartment/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/land/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/shophouse/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/condo/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/commercial/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/phnom-penh/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/sihanoukville/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/siem-reap/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/chamkarmon/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/daun-penh/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/toul-kork/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/7-makara/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /buy/sen-sok/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/house/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/apartment/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/land/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/shophouse/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/condo/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/serviced-apartment/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/long-term-rental/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/commercial/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/phnom-penh/
+2026-04-02 19:36:38 [debug_realestate] INFO: classes=[] -> /rent/sihanoukville/
+2026-04-02 19:36:38 [debug_realestate] INFO: 
+--- Likely listing card elements ---
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'featured', 'css-5ct99e', 'e1gd26e40'] text_preview=FeaturedFor rentReady to Move InVilla$15,000 per monthCheung Aek, Dangkao, Phno
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Villa$15,000 per monthCheung Aek, Dangkao, Phnom PenhBedrooms: 55Bathrooms: 8
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'featured', 'css-5ct99e', 'e1gd26e40'] text_preview=FeaturedFor rentPrice NegotiableVilla$4,000 per monthChrang Chamres 2, Russey K
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Villa$4,000 per monthChrang Chamres 2, Russey Keo, Phnom PenhBedrooms: 66Bath
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'featured', 'css-5ct99e', 'e1gd26e40'] text_preview=FeaturedFor sale or rentReady to Move InVilla$5,000 per monthChrang Chamres 2, 
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Villa$5,000 per monthChrang Chamres 2, Russey Keo, Phnom PenhBedrooms: 55Bath
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'featured', 'css-5ct99e', 'e1gd26e40'] text_preview=FeaturedFor sale or rentUnder Market ValueHouse$2,500 per monthPhnom Penh Thmey
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=House$2,500 per monthPhnom Penh Thmey, Sen Sok, Phnom PenhBedrooms: 44Bathroo
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'featured', 'css-5ct99e', 'e1gd26e40'] text_preview=FeaturedFor saleBoreyPOAVeal Sbov, Chbar Ampov, Phnom PenhUnit types: Apartmen
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'featured', 'css-5ct99e', 'e1gd26e40'] text_preview=FeaturedFor saleLuxury PropertyVIDEOBorey$123,500, Krang Thnong, Sen Sok, Phno
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableShophouse$1,500 per monthNirouth, Chbar Ampov, Phnom Pe
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Shophouse$1,500 per monthNirouth, Chbar Ampov, Phnom PenhBedrooms: 44Bathroom
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableTwin Villa$2,500 per monthVeal Sbov, Chbar Ampov, Phnom
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Twin Villa$2,500 per monthVeal Sbov, Chbar Ampov, Phnom PenhBedrooms: 44Bathr
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableShophouse$2,500 per monthBKK 1, Chamkarmon, Phnom Penh
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Shophouse$2,500 per monthBKK 1, Chamkarmon, Phnom PenhFloor area: 184m²184m²L
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentShophouse$1,500 per monthBKK 1, Chamkarmon, Phnom PenhBedrooms: 22Bat
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Shophouse$1,500 per monthBKK 1, Chamkarmon, Phnom PenhBedrooms: 22Bathrooms: 
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentReady to Move InVilla$5,000 per monthVeal Sbov, Chbar Ampov, Phnom Penh
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Villa$5,000 per monthVeal Sbov, Chbar Ampov, Phnom PenhBedrooms: 88Bathrooms:
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableLink House$600 per monthNirouth, Chbar Ampov, Phnom Pen
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Link House$600 per monthNirouth, Chbar Ampov, Phnom PenhBedrooms: 33Bathrooms
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableTwin Villa$1,800 per monthNirouth, Chbar Ampov, Phnom P
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Twin Villa$1,800 per monthNirouth, Chbar Ampov, Phnom PenhBedrooms: 44Bathroo
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableVilla$2,200 per monthBKK 3, Chamkarmon, Phnom PenhBedr
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Villa$2,200 per monthBKK 3, Chamkarmon, Phnom PenhBedrooms: 55Bathrooms: 44C
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableShophouse$950 per monthToul Tum Poung 2, Chamkarmon, Ph
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Shophouse$950 per monthToul Tum Poung 2, Chamkarmon, Phnom PenhFloor area: 80m
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableVilla$5,500 per monthSrah Chak, Daun Penh, Phnom PenhB
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Villa$5,500 per monthSrah Chak, Daun Penh, Phnom PenhBedrooms: 1212Bathrooms:
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentReady to Move InLink House$680 per monthBorey Peng Huoth: The Star Plat
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Link House$680 per monthBorey Peng Huoth: The Star Platinum Eco RomanceBedroom
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For sale or rentPrice NegotiableVilla$3,000 per monthPhnom Penh Thmey, Sen Sok,
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Villa$3,000 per monthPhnom Penh Thmey, Sen Sok, Phnom PenhBedrooms: 66Bathroo
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableLink House$1,250 per monthVeal Sbov, Chbar Ampov, Phnom
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Link House$1,250 per monthVeal Sbov, Chbar Ampov, Phnom PenhBedrooms: 44Bathr
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=article classes=['shadow', 'premium', 'css-5ct99e', 'e1gd26e40'] text_preview=For rentPrice NegotiableShophouse$1,000 per monthBorey Peng Huoth: The Star Pla
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['info', 'listing'] text_preview=Shophouse$1,000 per monthBorey Peng Huoth: The Star Platinum Polaris​ IIBedroo
+2026-04-02 19:36:38 [debug_realestate] INFO: tag=div classes=['percent', 'listing'] text_preview=
+2026-04-02 19:36:38 [debug_realestate] INFO: 
+--- Sample text content (short tags) ---
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-ce9hf'] -> APP
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-1oxwkf6'] -> +85561 777 090
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-133coio'] -> $
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-44j9vb'] -> $
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Buy
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Rent
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> New Developments
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Condo
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Boreys
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Land
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Commercial
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> News
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> More
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Login
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Register
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Add Property
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Property
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Location
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Buying Guides
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Property
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Location
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Rental Guides
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Location
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Location
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Location
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Location
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Search by Location
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Latest Real Estate News
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Realestate.com.kh Signs Partnership with De ...
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> LE CONDÉ 2 Opens Pre-Sale in BKK1 with Limit...
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Le Condé 2 BKK1: High-End Living in Phnom Penh
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> View More
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Realestate.com.kh TV
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Real Estate EXPO 2022 Breaks $30 Million Sal...
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Prince Trust, Cambodian Investment Managemen...
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Cambodia Real Estate Awards 2022
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> View More
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Property and Lifestyle Guides
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Cambodia Investment Guide
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Guides to Cambodia Locations
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=None -> Property Buyers & Seller Advice
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> View More
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Directory
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Services
+2026-04-02 19:36:38 [debug_realestate] INFO: h3 classes=None -> Our products
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['dropdown-select-value-wrapper'] -> Rent
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-122zmy7'] -> Select Item
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['dropdown-select-value-wrapper'] -> Property typeHouse
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-ikht7p'] -> House
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['dropdown-select-value-wrapper'] -> PriceAny
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-ikht7p'] -> Any
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['dropdown-select-value-wrapper'] -> BedroomsAny
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-ikht7p'] -> Any
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-59zpbu'] -> Filters
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-1ljieju'] -> 1
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Update
+2026-04-02 19:36:38 [debug_realestate] INFO: h1 classes=None -> Houses for Rent in Phnom Penh
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Save search
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['status'] -> Found 7,276 houses for rent in Phnom Penh
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Map View
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-1z139o6'] -> Sort: Relevance
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $15,000 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 8
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 8
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 486m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 486m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 350m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 350m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 17 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:10 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $4,000 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 6
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 6
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 10
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 10
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 845m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 845m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 288m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 288m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 22 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:22 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $5,000 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 7
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 7
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 450m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 450m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 28 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:28 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $2,500 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 126m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 126m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 1 year, 5 months ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:8 months ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> POA
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Unit types: Apartment, Twin Villa, Villa
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> Unit types: Apartment, Twin Villa, Villa
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4 to 11
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4 to 11
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 158 to 1039m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 158 to 1039m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> Borey Peng Huoth
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $2,600per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 8
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 8
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 10
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 10
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 352m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 352m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> N/E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> N/E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $3,000per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 169m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 169m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> LOGIN
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> REGISTER
+2026-04-02 19:36:38 [debug_realestate] INFO: p classes=['privacy'] -> By continuing, you agree to realestate.com.kh'sPrivacy Policy.
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> VIDEO
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> VIDEO
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $123,500
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Total units: 72
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> Total units: 72
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Unit types: Shophouse
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> Unit types: Shophouse
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 180
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 180
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> The Eco Residence
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $700per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 181m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 181m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> 88m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 88m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> S
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> S
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $1,500 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 63m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 63m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 114m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 114m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 3 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:3 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $2,500 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 248m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 248m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 3 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:3 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $2,500 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 184m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 184m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 8 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:7 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $1,500 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 150m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 150m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 100m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 100m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 8 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:an hour ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $5,000 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 8
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 8
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 6
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 6
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 768m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 768m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 1378m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 1378m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 10 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:9 hours ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $600 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 114m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 114m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 80m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 80m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: S
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> S
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $1,800 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 216m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 235m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 235m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $2,200 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 315m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 315m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 270m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 270m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $950 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 80m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 80m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> E
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $5,500 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 12
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 12
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 11
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 11
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 1152m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 1152m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 600m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 600m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $680 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['project-link'] -> Borey Peng Huoth: The Star Platinum Eco Romance
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: S/W
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> S/W
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $3,000 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 6
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 6
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 10
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 10
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 432m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 432m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 400m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 400m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:a day ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $1,250 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Car spaces: 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 180m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 180m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 120m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 120m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: W/N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> W/N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 2 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:2 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'css-14zaop0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-iwwvsq', 'eswwwzc0'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['value'] -> $1,000 per month
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['location-pin'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['project-link'] -> Borey Peng Huoth: The Star Platinum Polaris​ II
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bedrooms: 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Bathrooms: 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 5
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor area: 126m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 126m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Land area: 71m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 71m²
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Floor level: 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['label'] -> Facing: N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['short-label'] -> N
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Listed : 2 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['normal-span'] -> Updated:2 days ago
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Contact
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> 1
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> 2
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> 3
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> 4
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Other Property Types
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['css-fn3zte'] -> Nearby Locations
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['icon', 'phone'] -> 
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=['e14k8f2o1', 'css-lz7kp9'] -> Fazwaz-kh.com|Lamudi.co.id|Lamudi.com.ph|Bproperty.com|Hausples.com.pg
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> |
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> |
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> |
+2026-04-02 19:36:38 [debug_realestate] INFO: span classes=None -> |
+2026-04-02 19:36:38 [scrapy.core.engine] INFO: Closing spider (finished)
+2026-04-02 19:36:38 [scrapy.extensions.feedexport] INFO: Stored csv feed (0 items) in: ../data/raw/house_renting_preaek-ta-sek.csv
+2026-04-02 19:36:38 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 456,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 434769,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 35.21128,
+ 'feedexport/success_count/FileFeedStorage': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2026, 4, 2, 12, 36, 38, 341966, tzinfo=datetime.timezone.utc),
+ 'items_per_minute': 0.0,
+ 'log_count/INFO': 679,
+ 'memusage/max': 76582912,
+ 'memusage/startup': 76582912,
+ 'playwright/browser_count': 2,
+ 'playwright/context_count': 2,
+ 'playwright/context_count/max_concurrent': 1,
+ 'playwright/context_count/persistent/False': 2,
+ 'playwright/context_count/remote/False': 2,
+ 'playwright/page_count': 1,
+ 'playwright/page_count/max_concurrent': 1,
+ 'playwright/request_count': 145,
+ 'playwright/request_count/method/GET': 141,
+ 'playwright/request_count/method/POST': 4,
+ 'playwright/request_count/navigation': 5,
+ 'playwright/request_count/resource_type/document': 5,
+ 'playwright/request_count/resource_type/fetch': 28,
+ 'playwright/request_count/resource_type/font': 9,
+ 'playwright/request_count/resource_type/image': 39,
+ 'playwright/request_count/resource_type/other': 2,
+ 'playwright/request_count/resource_type/script': 58,
+ 'playwright/request_count/resource_type/stylesheet': 2,
+ 'playwright/request_count/resource_type/xhr': 2,
+ 'playwright/response_count': 136,
+ 'playwright/response_count/method/GET': 132,
+ 'playwright/response_count/method/POST': 4,
+ 'playwright/response_count/resource_type/document': 5,
+ 'playwright/response_count/resource_type/fetch': 26,
+ 'playwright/response_count/resource_type/font': 9,
+ 'playwright/response_count/resource_type/image': 35,
+ 'playwright/response_count/resource_type/other': 2,
+ 'playwright/response_count/resource_type/script': 55,
+ 'playwright/response_count/resource_type/stylesheet': 2,
+ 'playwright/response_count/resource_type/xhr': 2,
+ 'response_received_count': 1,
+ 'responses_per_minute': 1.7142857142857142,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2026, 4, 2, 12, 36, 3, 130686, tzinfo=datetime.timezone.utc)}
+2026-04-02 19:36:38 [scrapy.core.engine] INFO: Spider closed (finished)
+2026-04-02 19:36:38 [scrapy-playwright] INFO: Closing download handler
+2026-04-02 19:36:38 [scrapy-playwright] INFO: Closing browser
+2026-04-02 19:36:38 [scrapy-playwright] INFO: Closing download handler
+2026-04-02 19:36:38 [scrapy-playwright] INFO: Closing browser
