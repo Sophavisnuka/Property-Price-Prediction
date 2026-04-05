@@ -6,6 +6,7 @@ FastAPI route that handles prediction based on Khmer24 features.
 
 import pickle, os, math
 import numpy as np
+import pandas as pd
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional
@@ -13,7 +14,7 @@ from typing import Optional
 router = APIRouter()
 
 # ── paths ─────────────────────────────────────────────────────────────────────
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "ml", "models")
+MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "ml", "models")
 
 def _load(filename):
     path = os.path.join(MODEL_DIR, filename)
@@ -173,3 +174,65 @@ def predict_price(req: PredictRequest):
 @router.get("/predict/health")
 def health():
     return {"status": "ok", "model": _model_name, "features": _feature_names}
+
+
+# ── stats ─────────────────────────────────────────────────────────────────────
+_DATA_CSV = os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "Khmer24_features.csv")
+
+def _load_df() -> pd.DataFrame:
+    try:
+        return pd.read_csv(_DATA_CSV, encoding="utf-8")
+    except UnicodeDecodeError:
+        return pd.read_csv(_DATA_CSV, encoding="latin-1")
+
+@router.get("/stats")
+def get_stats():
+    try:
+        df = _load_df()
+        df = df[df["rent_price_usd"] > 0].dropna(subset=["rent_price_usd"])
+
+        # 1. Price distribution (bucket counts)
+        buckets = [0, 200, 400, 600, 800, 1000, 1500, 2000, 3000, 5000, 999999]
+        labels  = ["<$200", "$200-400", "$400-600", "$600-800", "$800-1k",
+                   "$1k-1.5k", "$1.5k-2k", "$2k-3k", "$3k-5k", ">$5k"]
+        df["bucket"] = pd.cut(df["rent_price_usd"], bins=buckets, labels=labels, right=False)
+        price_dist = (
+            df["bucket"].value_counts().reindex(labels, fill_value=0)
+            .reset_index().rename(columns={"bucket": "range", "count": "count"})
+            .to_dict(orient="records")
+        )
+
+        # 2. Average price by district (top 8)
+        by_district = (
+            df.groupby("district")["rent_price_usd"]
+            .mean().round(0).sort_values(ascending=False).head(8)
+            .reset_index().rename(columns={"district": "location", "rent_price_usd": "avg_price"})
+            .to_dict(orient="records")
+        )
+
+        # 3. Bedrooms vs average price
+        by_bedrooms = (
+            df[df["bedrooms"].notna() & (df["bedrooms"] <= 8)]
+            .groupby("bedrooms")["rent_price_usd"]
+            .mean().round(0).reset_index()
+            .rename(columns={"bedrooms": "bedrooms", "rent_price_usd": "avg_price"})
+            .sort_values("bedrooms")
+            .to_dict(orient="records")
+        )
+
+        # 4. Average price by property type
+        by_type = (
+            df.groupby("property_type")["rent_price_usd"]
+            .mean().round(0).sort_values(ascending=False)
+            .reset_index().rename(columns={"property_type": "type", "rent_price_usd": "avg_price"})
+            .to_dict(orient="records")
+        )
+
+        return {
+            "price_distribution": price_dist,
+            "avg_price_by_district": by_district,
+            "avg_price_by_bedrooms": by_bedrooms,
+            "avg_price_by_type": by_type,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

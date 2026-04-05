@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { predictPrice } from "../api/api";
 
 const leafletCSS = document.createElement("link");
 leafletCSS.rel = "stylesheet";
@@ -120,28 +121,14 @@ function PredictionForm({ onResult, onLoading }) {
     setLoading(true);
     onLoading(true);      // tell parent loading started
     try {
-      const res = await fetch("/api/predict", {
-        method:  "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const data = await predictPrice({
           size_sqm:      parseFloat(sizeSqm),
           bedrooms:      parseInt(bedrooms),
           bathrooms:     parseInt(bathrooms),
           property_type: propertyType.trim().toLowerCase(),
           furnishing:    furnishing,
-        }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        const errDetail = Array.isArray(err.detail) 
-          ? err.detail.map(e => `${e.loc.slice(-1)}: ${e.msg}`).join(", ") 
-          : err.detail;
-        throw new Error(errDetail || `Server error ${res.status}`);
-      }
-
-      const data = await res.json();
-      onResult(data);     // send result up to parent → PriceResult will show it
+        });
+      onResult(data);
     } catch (err) {
       setError(err.message || "Prediction failed. Is the backend running?");
     } finally {
