@@ -91,7 +91,7 @@ const PROPERTY_TYPES = [
 
 // ← now accepts onResult and onLoading from parent
 function PredictionForm({ onResult, onLoading }) {
-  const [city,         setCity]         = useState("");
+  const [city,         setCity]         = useState("Phnom Penh");
   const [district,     setDistrict]     = useState("");
   const [location,     setLocation]     = useState("");
   const [propertyType, setPropertyType] = useState("");
@@ -170,7 +170,7 @@ function PredictionForm({ onResult, onLoading }) {
                 <input
                   placeholder="e.g. Phnom Penh"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                  value={district}
+                  value={city}
                   onChange={(e) => setDistrict(e.target.value)}
                 />
               </div>
@@ -179,7 +179,7 @@ function PredictionForm({ onResult, onLoading }) {
                 <input
                   placeholder="e.g. Chroy Chanva"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                  value={city}
+                  value={district}
                   onChange={(e) => setCity(e.target.value)}
                 />
               </div>
