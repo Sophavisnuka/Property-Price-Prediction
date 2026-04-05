@@ -12,9 +12,9 @@ function Navbar() {
                     <Link to="/" className="text-gray-700 hover:text-gray-900 font-medium transition-colors">Home</Link>
                     <Link to="/predict" className="text-gray-700 hover:text-gray-900 font-medium transition-colors">Predict</Link>
                     <Link to="/dashboard" className="text-gray-700 hover:text-gray-900 font-medium transition-colors">Analytics</Link>
-                    <button className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-medium transition-colors">
+                    <Link to="/about" className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-medium transition-colors">
                         About Us
-                    </button>
+                    </Link>
                 </div>
             </div>
         </nav>

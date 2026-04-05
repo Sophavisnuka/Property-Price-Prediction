@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Predict from "./pages/Predict";
 import Dashboard from "./pages/Dashboard";
+import AboutUs from "./pages/AboutUs";
 import './App.css'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/predict" element={<Predict />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/about" element={<AboutUs />} />
           </Routes>
         </div>
       </div>
