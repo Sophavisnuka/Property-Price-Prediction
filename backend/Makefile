@@ -1,11 +1,13 @@
+PYTHON = C:/Users/User/AppData/Local/Programs/Python/Python313/python.exe
+
 .PHONY: dev
 dev:
-	uv run uvicorn app.main:app --port 8001 --reload
+	$(PYTHON) -m uvicorn app.main:app --port 8001 --reload
 
 
 .PHONY: sync
 sync:
-	uv sync
+	$(PYTHON) -m pip install --prefer-binary -r requirements.txt
 
 
 .PHONY: add
@@ -15,9 +17,13 @@ add:
 		echo "  make add package=\"fastapi httpx\""; \
 		exit 1; \
 	fi
-	uv add $(package)
+	$(PYTHON) -m pip install $(package)
 
 
 .PHONY: prod
 prod:
-	uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+	$(PYTHON) -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+.PHONY: run-prod
+run-prod:
+	$(PYTHON) -m uvicorn app.main:app --host 0.0.0.0 --port 8000
