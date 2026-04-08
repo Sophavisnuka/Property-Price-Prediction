@@ -23,14 +23,19 @@ warnings.filterwarnings("ignore")
 # ── Reuse the same preprocess pipeline ─────────────────────────────────────────
 from ml.preprocess import run as prepare_data
 
-MODEL_DIR  = os.path.join(os.path.dirname(__file__), "models")
+MODEL_VERSION = "version_number"
+MODEL_DIR  = os.path.join(os.path.dirname(__file__), "models", MODEL_VERSION)
 OUTPUT_PNG = os.path.join(MODEL_DIR, "model_comparison.png")
 
 MODEL_FILES = {
     "Linear\nRegression": "linear_regression.pkl",
+    "Ridge\nRegression":  "ridge_regression.pkl",
+    "Elastic\nNet":       "elasticnet.pkl",
     "SVM\n(SVR)":         "svm_svr.pkl",
     "Random\nForest":     "random_forest.pkl",
+    "Extra\nTrees":       "extra_trees.pkl",
     "Gradient\nBoosting": "gradient_boosting.pkl",
+    "Hist\nGradBoost":    "histgradientboosting.pkl",
 }
 
 # ── Color palette ───────────────────────────────────────────────────────────────
@@ -42,7 +47,10 @@ TEXT      = "#e8d5a3"
 MUTED     = "#5a4a2e"
 BORDER    = "#2a1f10"
 
-COLORS = ["#4e8fd4", "#c8963e", "#5cb87a", "#c85e5e"]   # blue, gold, green, red
+COLORS = [
+    "#4e8fd4", "#c8963e", "#5cb87a", "#c85e5e",
+    "#8f67d9", "#4db0b0", "#d47a4e", "#7b9f35",
+]
 
 
 def load_model(filename):
@@ -87,7 +95,7 @@ def style_ax(ax, title="", xlabel="", ylabel=""):
 
 def run():
     print("Loading data and training models for evaluation…")
-    X_train, X_test, y_train, y_test, feature_names, encoders, scaler = prepare_data()
+    X_train, X_test, y_train, y_test, feature_names, encoders, scaler, imputer = prepare_data()
 
     # Collect metrics for each model
     names, metrics_list = [], []
