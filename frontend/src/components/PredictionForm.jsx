@@ -85,25 +85,23 @@ function LocationMap({ onSelect }) {
   );
 }
 
-const PROPERTY_TYPES = [
-  "apartment", "house", "room", "condo",
-];
+const PROPERTY_TYPES = ["Flat", "House", "Other", "Shophouse", "Twin Villa", "Villa"];
+const MIN_SIZE_SQM = 6;
 
 // ← now accepts onResult and onLoading from parent
 function PredictionForm({ onResult, onLoading }) {
-  const [city,         setCity]         = useState("Phnom Penh");
-  const [district,     setDistrict]     = useState("");
-  const [location,     setLocation]     = useState("");
+  const [city,         setCity]           = useState("Phnom Penh");
+  const [district,     setDistrict]       = useState("Khan Chroy Changva");
+  const [location,     setLocation]       = useState("Chroy Changva");
   const [propertyType, setPropertyType] = useState("");
   const [sizeSqm,      setSizeSqm]      = useState("");
   const [bedrooms,     setBedrooms]     = useState("");
   const [bathrooms,    setBathrooms]    = useState("");
-  const [furnishing,   setFurnishing]   = useState("unfurnished");
   const [loading,      setLoading]      = useState(false);
   const [error,        setError]        = useState("");
 
   const handleMapSelect = (geo) => {
-    if (geo.city)     setCity(geo.city);
+    if (geo.city) setCity(geo.city);
     if (geo.district) setDistrict(geo.district);
     if (geo.location) setLocation(geo.location);
   };
@@ -114,7 +112,31 @@ function PredictionForm({ onResult, onLoading }) {
     onResult(null);       // reset result in parent
 
     if (!sizeSqm || !bedrooms || !bathrooms || !propertyType) {
-      setError("Please fill in size, bedrooms, bathrooms, and property type (or pin a location on the map).");
+      setError("Please fill in size, bedrooms, bathrooms, and property type.");
+      return;
+    }
+
+    const parsedSizeSqm = Number(sizeSqm);
+    const parsedBedrooms = Number(bedrooms);
+    const parsedBathrooms = Number(bathrooms);
+
+    if ([parsedSizeSqm, parsedBedrooms, parsedBathrooms].some(Number.isNaN)) {
+      setError("Please enter valid numeric values for size, bedrooms, and bathrooms.");
+      return;
+    }
+
+    if (parsedSizeSqm < MIN_SIZE_SQM) {
+      setError(`Size must be at least ${MIN_SIZE_SQM} sqm based on the training data.`);
+      return;
+    }
+
+    if (parsedBedrooms < 0 || parsedBathrooms < 0) {
+      setError("Bedrooms and bathrooms cannot be less than 0.");
+      return;
+    }
+
+    if (parsedBathrooms < 1) {
+      setError("Bathrooms must be at least 1.");
       return;
     }
 
@@ -122,12 +144,14 @@ function PredictionForm({ onResult, onLoading }) {
     onLoading(true);      // tell parent loading started
     try {
       const data = await predictPrice({
-          size_sqm:      parseFloat(sizeSqm),
-          bedrooms:      parseInt(bedrooms),
-          bathrooms:     parseInt(bathrooms),
-          property_type: propertyType.trim().toLowerCase(),
-          furnishing:    furnishing,
-        });
+        size_sqm: parsedSizeSqm,
+        bedrooms: Math.trunc(parsedBedrooms),
+        bathrooms: Math.trunc(parsedBathrooms),
+        property_type: propertyType.trim().toLowerCase(),
+        city: city.trim(),
+        district: district.trim(),
+        location: location.trim(),
+      });
       onResult(data);
     } catch (err) {
       setError(err.message || "Prediction failed. Is the backend running?");
@@ -171,7 +195,7 @@ function PredictionForm({ onResult, onLoading }) {
                   placeholder="e.g. Phnom Penh"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   value={city}
-                  onChange={(e) => setDistrict(e.target.value)}
+                  onChange={(e) => setCity(e.target.value)}
                 />
               </div>
               <div>
@@ -180,7 +204,7 @@ function PredictionForm({ onResult, onLoading }) {
                   placeholder="e.g. Chroy Chanva"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   value={district}
-                  onChange={(e) => setCity(e.target.value)}
+                  onChange={(e) => setDistrict(e.target.value)}
                 />
               </div>
             </div>
@@ -210,7 +234,7 @@ function PredictionForm({ onResult, onLoading }) {
                   <option value="">— select type —</option>
                   {PROPERTY_TYPES.map((t) => (
                     <option key={t} value={t}>
-                      {t.charAt(0).toUpperCase() + t.slice(1)}
+                      {t}
                     </option>
                   ))}
                 </select>
@@ -225,8 +249,11 @@ function PredictionForm({ onResult, onLoading }) {
                   placeholder="e.g. 75"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   value={sizeSqm}
+                  min={MIN_SIZE_SQM}
+                  step="0.1"
                   onChange={(e) => setSizeSqm(e.target.value)}
                 />
+                <p className="text-xs text-gray-500 mt-1">Minimum allowed size: {MIN_SIZE_SQM} sqm</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
@@ -235,6 +262,8 @@ function PredictionForm({ onResult, onLoading }) {
                   placeholder="e.g. 2"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   value={bedrooms}
+                  min={0}
+                  step="1"
                   onChange={(e) => setBedrooms(e.target.value)}
                 />
               </div>
@@ -245,21 +274,11 @@ function PredictionForm({ onResult, onLoading }) {
                   placeholder="e.g. 2"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   value={bathrooms}
+                  min={1}
+                  step="1"
                   onChange={(e) => setBathrooms(e.target.value)}
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Furnishing</label>
-              <select
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white"
-                value={furnishing}
-                onChange={(e) => setFurnishing(e.target.value)}
-              >
-                <option value="unfurnished">Unfurnished</option>
-                <option value="furnished">Furnished</option>
-              </select>
             </div>
 
             {error && (

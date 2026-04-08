@@ -1,10 +1,26 @@
 const BASE_URL = "/api";
 
-export async function predictPrice({ size_sqm, bedrooms, bathrooms, property_type, furnishing }) {
+export async function predictPrice({
+  size_sqm,
+  bedrooms,
+  bathrooms,
+  property_type,
+  city,
+  district,
+  location,
+}) {
   const res = await fetch(`${BASE_URL}/predict`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ size_sqm, bedrooms, bathrooms, property_type, furnishing }),
+    body: JSON.stringify({
+      size_sqm,
+      bedrooms,
+      bathrooms,
+      property_type,
+      city,
+      district,
+      location,
+    }),
   });
 
   if (!res.ok) {
