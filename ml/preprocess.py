@@ -18,6 +18,7 @@ DATA_PATH = ROOT_DIR / "data_cleaning" / "Khmer24_cleaned_v4.csv"
 FALLBACK_DATA_PATHS = [
     ROOT_DIR / "data_cleaning" / "Khmer24_cleaned_auto.csv",
     ROOT_DIR / "data" / "Khmer24_features.csv",
+    ROOT_DIR / "backend" / "data" / "Khmer24_features.csv",
 ]
 MODEL_VERSION = "version_number"
 OUTPUT_DIR = ROOT_DIR / "ml" / "models" / MODEL_VERSION

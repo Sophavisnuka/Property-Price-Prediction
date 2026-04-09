@@ -36,7 +36,7 @@ _imputer      = _load("imputer.pkl")        # NEW: Load imputer
 _feature_names = _load("feature_names.pkl") 
 
 CLEANED_V4_CSV = os.path.join(PROJECT_ROOT, "data_cleaning", "Khmer24_cleaned_v4.csv")
-FEATURE_DATA_CSV = os.path.join(PROJECT_ROOT, "data", "Khmer24_features.csv")
+FEATURE_DATA_CSV = os.path.join(PROJECT_ROOT, "backend", "data", "Khmer24_features.csv")
 RAW_DATA_CSV = os.path.join(PROJECT_ROOT, "backend", "data", "properties.csv")
 
 

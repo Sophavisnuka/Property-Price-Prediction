@@ -21,7 +21,7 @@ from sklearn.model_selection import cross_val_score
 warnings.filterwarnings("ignore")
 
 # ── Reuse the same preprocess pipeline ─────────────────────────────────────────
-from ml.preprocess import run as prepare_data
+from preprocess import run as prepare_data
 
 MODEL_VERSION = "version_number"
 MODEL_DIR  = os.path.join(os.path.dirname(__file__), "models", MODEL_VERSION)
