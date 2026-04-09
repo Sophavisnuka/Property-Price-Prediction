@@ -23,7 +23,7 @@ from sklearn.metrics import (mean_absolute_error, mean_squared_error,
 from sklearn.model_selection import cross_val_score, RandomizedSearchCV
 warnings.filterwarnings("ignore")
 
-from ml.preprocess import run as prepare_data
+from preprocess import run as prepare_data
 
 MODEL_VERSION = "version_number"
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "models", MODEL_VERSION)
@@ -208,9 +208,10 @@ def run():
     print(df_res.round(4).to_string())
 
     # ── Pick best ────────────────────────────────────────────────────────────
-    best     = max(results, key=lambda r: r["R2"])
+    # Force Random Forest to be the chosen best model
+    best = next(r for r in results if r["name"] == "Random Forest")
     best_mdl = best["model"]
-    print(f"\nBest model : {best['name']}  (R² = {best['R2']:.4f})")
+    print(f"\nBest model (forced): {best['name']}  (R² = {best['R2']:.4f})")
 
     feature_importance(best_mdl, feature_names)
 
