@@ -1,15 +1,4 @@
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-  LineChart,
-  Line,
-} from "recharts";
 
 function PriceResult({ result, loading }) {
   const fmt = (v) =>
@@ -22,11 +11,6 @@ function PriceResult({ result, loading }) {
   const diffRaw = result && averageMarketPrice > 0 ? ((result.predicted_price - averageMarketPrice) / averageMarketPrice) * 100 : 0;
   const isHigher = diffRaw > 0;
   const percentageDiff = Math.abs(diffRaw).toFixed(1);
-
-  // Directly map the new backend response arrays
-  const featureImportanceData = result?.feature_importances || [];
-  const locationData = result?.location_data || [];
-  const sizeCorrelationData = result?.size_correlation_data || [];
 
   return (
     <div className="relative bg-slate-900 rounded-3xl p-5 border border-indigo-500/30 shadow-[0_0_30px_rgba(79,70,229,0.1)] flex flex-col min-h-[380px] overflow-hidden text-white">
@@ -100,10 +84,8 @@ function PriceResult({ result, loading }) {
             </div>
           </div>
 
-          {/* Analysis & Explanations (Dense Grid) */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 xl:grid-rows-2 gap-4 h-full">
-            
-            {/* Market Comparison & Explanation */}
+          {/* Analysis */}
+          <div className="grid grid-cols-1 gap-4 h-full">
             <div className="bg-indigo-500/10 border border-indigo-500/30 p-4 rounded-xl flex flex-col justify-center">
               <h4 className="text-indigo-300 font-semibold mb-1 text-sm flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
@@ -115,77 +97,9 @@ function PriceResult({ result, loading }) {
                 </strong> than the baseline ({fmt(averageMarketPrice)}).
               </p>
               <p className="text-slate-400 text-[11px] leading-snug">
-                <span className="text-slate-300 font-medium">Model Evaluation:</span> The influential variables determining this footprint belong to the features outlined below based directly on the Random Forest node weights.
+                <span className="text-slate-300 font-medium">Model Note:</span> {result.confidence_note || "Estimated range may vary by listing condition and negotiation."}
               </p>
             </div>
-
-            {/* Data-driven Feature Importance (Tailwind Progress Bars) */}
-            <div className="bg-slate-800/50 border border-white/10 p-4 rounded-xl flex flex-col justify-center">
-              <h4 className="text-slate-200 font-semibold mb-2 text-xs uppercase tracking-wide">
-                Top Pricing Characteristics
-              </h4>
-              <div className="flex flex-col gap-2">
-                {featureImportanceData.slice(0, 4).map((item, idx) => (
-                  <div key={idx}>
-                    <div className="flex justify-between text-[10px] text-slate-400 mb-0.5">
-                      <span className="font-mono truncate pr-2" title={item.feature}>{item.feature}</span>
-                      <span className="shrink-0">{item.waitWeight}%</span>
-                    </div>
-                    <div className="w-full bg-slate-700 rounded-full h-1 overflow-hidden">
-                      <div
-                        className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full rounded-full"
-                        style={{ width: `${item.waitWeight}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Dynamic Price vs Size - Line Chart */}
-            <div className="bg-slate-800/50 border border-white/10 p-3 rounded-xl h-[150px] flex flex-col">
-              <h4 className="text-slate-200 font-medium mb-1 text-[11px] uppercase tracking-wide text-center">
-                Predicted Rent vs Size
-              </h4>
-              <div className="flex-1 w-full h-full min-h-0">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={sizeCorrelationData} margin={{ top: 5, right: 10, left: -25, bottom: -5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                    <XAxis dataKey="size" tick={{ fill: '#94a3b8', fontSize: 9 }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fill: '#94a3b8', fontSize: 9 }} axisLine={false} tickLine={false} />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '6px', color: '#f8fafc', fontSize: '10px' }}
-                      formatter={(value) => [`$${value}`, "Expected Price"]}
-                      labelFormatter={(label) => `${label} Sqm`}
-                    />
-                    <Line type="monotone" dataKey="price" stroke="#c084fc" strokeWidth={2} dot={{ fill: '#c084fc', strokeWidth: 1, r: 3 }} activeDot={{ r: 4 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
-            {/* Avg Price By Location - Bar Chart */}
-            <div className="bg-slate-800/50 border border-white/10 p-3 rounded-xl h-[150px] flex flex-col">
-              <h4 className="text-slate-200 font-medium mb-1 text-[11px] uppercase tracking-wide text-center">
-                Top Sample Regions
-              </h4>
-              <div className="flex-1 w-full h-full min-h-0">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={locationData} margin={{ top: 5, right: 10, left: -25, bottom: -5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                    <XAxis dataKey="location" tick={{ fill: '#94a3b8', fontSize: 9 }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fill: '#94a3b8', fontSize: 9 }} axisLine={false} tickLine={false} />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '6px', color: '#f8fafc', fontSize: '10px' }}
-                      itemStyle={{ color: '#818cf8' }}
-                      formatter={(value) => [`$${value}`, "Average Price"]}
-                    />
-                    <Bar dataKey="price" fill="#6366f1" radius={[3, 3, 0, 0]} barSize={20} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
           </div>
         </div>
       )}
@@ -193,4 +107,4 @@ function PriceResult({ result, loading }) {
   );
 }
 
-export default PriceResult;
+export default PriceResult; 

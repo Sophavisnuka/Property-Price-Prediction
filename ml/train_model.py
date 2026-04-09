@@ -15,52 +15,123 @@ import pickle, os, time, warnings
 import numpy as np
 import pandas as pd
 from sklearn.svm import SVR
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, ExtraTreesRegressor, HistGradientBoostingRegressor
+from sklearn.linear_model import LinearRegression, Ridge, ElasticNet
+from sklearn.compose import TransformedTargetRegressor
 from sklearn.metrics import (mean_absolute_error, mean_squared_error,
                               r2_score, mean_absolute_percentage_error)
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, RandomizedSearchCV
 warnings.filterwarnings("ignore")
 
 from ml.preprocess import run as prepare_data
 
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "models")
+MODEL_VERSION = "version_number"
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "models", MODEL_VERSION)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ── Model definitions ────────────────────────────────────────────────────────
-# Note: with only categorical features, tree-based models (RF, GBM) tend to
-# outperform linear models and SVR significantly.
-MODELS = {
+BASE_MODELS = {
     "Linear Regression": LinearRegression(),
 
-    "Ridge Regression": Ridge(alpha=10.0),
+    "Ridge Regression": Ridge(alpha=3.0),
+
+    "ElasticNet": ElasticNet(alpha=0.03, l1_ratio=0.2, random_state=42),
 
     "Random Forest": RandomForestRegressor(
-        n_estimators=300,
-        max_depth=12,
-        min_samples_split=4,
-        min_samples_leaf=2,
-        max_features="sqrt",
+        n_estimators=400,
+        random_state=42,
+        n_jobs=-1,
+    ),
+
+    "Extra Trees": ExtraTreesRegressor(
+        n_estimators=500,
         random_state=42,
         n_jobs=-1,
     ),
 
     "SVM (SVR)": SVR(
         kernel="rbf",
-        C=200,
-        epsilon=0.1,
+        C=100,
+        epsilon=0.08,
         gamma="scale",
     ),
 
     "Gradient Boosting": GradientBoostingRegressor(
-        n_estimators=400,
-        learning_rate=0.05,
-        max_depth=5,
-        subsample=0.8,
-        min_samples_leaf=3,
+        random_state=42,
+    ),
+
+    "HistGradientBoosting": HistGradientBoostingRegressor(
         random_state=42,
     ),
 }
+
+
+# Hyperparameter search spaces for models that usually benefit from tuning.
+TUNE_SPACES = {
+    "Random Forest": {
+        "regressor__n_estimators": [300, 500, 700],
+        "regressor__max_depth": [None, 10, 14, 18],
+        "regressor__min_samples_split": [2, 4, 8],
+        "regressor__min_samples_leaf": [1, 2, 4],
+        "regressor__max_features": ["sqrt", "log2", 0.8],
+    },
+    "Extra Trees": {
+        "regressor__n_estimators": [400, 600, 800],
+        "regressor__max_depth": [None, 12, 18, 24],
+        "regressor__min_samples_split": [2, 4, 8],
+        "regressor__min_samples_leaf": [1, 2, 4],
+        "regressor__max_features": ["sqrt", "log2", 0.8],
+    },
+    "Gradient Boosting": {
+        "regressor__n_estimators": [300, 500, 700],
+        "regressor__learning_rate": [0.03, 0.05, 0.08],
+        "regressor__max_depth": [3, 4, 5],
+        "regressor__subsample": [0.7, 0.85, 1.0],
+        "regressor__min_samples_leaf": [1, 3, 5],
+    },
+    "HistGradientBoosting": {
+        "regressor__learning_rate": [0.03, 0.05, 0.08],
+        "regressor__max_depth": [None, 8, 12],
+        "regressor__max_iter": [300, 500, 700],
+        "regressor__max_leaf_nodes": [31, 63],
+        "regressor__l2_regularization": [0.0, 0.1, 0.5],
+    },
+    "SVM (SVR)": {
+        "regressor__C": [30, 60, 100, 150],
+        "regressor__epsilon": [0.03, 0.05, 0.08, 0.12],
+        "regressor__gamma": ["scale", "auto"],
+    },
+}
+
+
+def _wrap_with_log_target(model):
+    return TransformedTargetRegressor(
+        regressor=model,
+        func=np.log1p,
+        inverse_func=np.expm1,
+        check_inverse=False,
+    )
+
+
+def maybe_tune_model(name, model, X_train, y_train):
+    wrapped = _wrap_with_log_target(model)
+    if name not in TUNE_SPACES:
+        return wrapped
+
+    print(f"[tune] Running randomized search for {name}...")
+    search = RandomizedSearchCV(
+        estimator=wrapped,
+        param_distributions=TUNE_SPACES[name],
+        n_iter=12,
+        cv=4,
+        scoring="neg_root_mean_squared_error",
+        n_jobs=-1,
+        random_state=42,
+        verbose=0,
+    )
+    search.fit(X_train, y_train)
+    print(f"[tune] Best params for {name}: {search.best_params_}")
+    return search.best_estimator_
 
 
 def evaluate(name, model, X_train, X_test, y_train, y_test) -> dict:
@@ -77,9 +148,9 @@ def evaluate(name, model, X_train, X_test, y_train, y_test) -> dict:
 
     cv = cross_val_score(model, X_train, y_train, cv=5, scoring="r2", n_jobs=-1)
 
-    print(f"\n{'─' * 52}")
+    print(f"\n{'-' * 52}")
     print(f"  {name}")
-    print(f"{'─' * 52}")
+    print(f"{'-' * 52}")
     print(f"  MAE    : ${mae:>10,.2f}")
     print(f"  RMSE   : ${rmse:>10,.2f}")
     print(f"  MAPE   :  {mape:>9.2f}%")
@@ -101,9 +172,10 @@ def evaluate(name, model, X_train, X_test, y_train, y_test) -> dict:
 
 
 def feature_importance(model, feature_names):
-    if not hasattr(model, "feature_importances_"):
+    base_model = getattr(model, "regressor_", model)
+    if not hasattr(base_model, "feature_importances_"):
         return
-    imp   = model.feature_importances_
+    imp = base_model.feature_importances_
     pairs = sorted(zip(feature_names, imp), key=lambda x: x[1], reverse=True)
     print("\n[importance] Feature importances:")
     for feat, score in pairs:
@@ -119,7 +191,8 @@ def run():
     X_train, X_test, y_train, y_test, feature_names, encoders, scaler, imputer = prepare_data()
 
     results = []
-    for name, model in MODELS.items():
+    for name, base_model in BASE_MODELS.items():
+        model = maybe_tune_model(name, base_model, X_train, y_train)
         res = evaluate(name, model, X_train, X_test, y_train, y_test)
         results.append(res)
 
